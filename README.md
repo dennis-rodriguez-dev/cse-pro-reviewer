@@ -4,12 +4,12 @@ A practice app for the Philippine Civil Service Commission **Career Service Prof
 
 ## Status
 
-Personal project, MVP complete, run locally only.
+Personal project, MVP complete, run locally only. The owner's local database now holds a live question bank and real user data.
 
 | Milestone | State |
 |---|---|
 | M1–M6 Foundation, question bank, import pipeline, individual tests, mock exam, results and leaderboard | Done |
-| M7 Polish, accessibility and portability | Done, awaiting review |
+| M7 Polish, accessibility and portability | Done (merged, tagged `m7-done`) |
 
 The full suite passes on SQLite and MySQL 8.4. PostgreSQL has not been run yet; do that before deploying on it.
 
@@ -29,7 +29,7 @@ Pinned in `specs/plan.md` §1.3:
 Install [Laravel Herd](https://herd.laravel.com/windows) with PHP 8.3 or newer. Run PHP and Composer commands in **PowerShell**: Herd puts them on the PowerShell path, not on Git Bash's.
 
 ```powershell
-git clone https://github.com/DMR-PersonalProject/cse-pro-reviewer.git
+git clone https://github.com/dennis-rodriguez-dev/cse-pro-reviewer.git
 cd cse-pro-reviewer
 composer install
 npm install
@@ -57,7 +57,7 @@ Timed attempts that run out while nobody has the page open are finalized by `cse
 composer test                     # run the Pest suite
 composer lint                     # check formatting (pint --test)
 composer fix                      # apply formatting (pint)
-php artisan migrate:fresh --seed  # reset the local database
+php artisan migrate:fresh --seed  # reset a new dev database: wipes ALL data, never run it on a database with real content
 npm run dev                       # Vite dev server with hot reload
 npm run build                     # production assets
 ```
@@ -70,7 +70,7 @@ Full guide: `content/README.md`.
 2. Check the file: `php artisan cse:import content/staged/<file>.json --dry-run`.
 3. Create a pending batch: run the same command without `--dry-run`, or upload the file at **/admin → Imports → Upload questions → Check file** (no media files there; rows with images are flagged "attach in editor").
 4. Review the batch preview in `/admin` and approve rows. Approved rows become `draft` or `needs_review` under a private source. Nothing is published by an import.
-5. Publish items one by one from the question editor.
+5. Publish items from the question editor, or several at once with the bulk action in the Questions table.
 
 ## MVP features
 
